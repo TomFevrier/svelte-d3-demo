@@ -1,30 +1,44 @@
 <script>
-	export let name;
+	import { csv } from 'd3-fetch';
+
+	import ScatterPlot from './ScatterPlot.svelte';
+	import LineChart from './LineChart.svelte';
+
+	let data1;
+	// https://www.gapminder.org/fw/world-health-chart/
+	csv('banque_mondiale.csv').then(data => data1 = data);
+
+	let data2;
+	setTimeout(() => {
+		data2 = new Array(100).fill().map((_, i) => ({ x: i, y: Math.random() }));
+	}, 100);
+
 </script>
 
+<h1>Svelte × D3</h1>
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	{#if data1}
+		<ScatterPlot data={data1} />
+	{/if}
+	{#if data2}
+		<LineChart data={data2} />
+	{/if}
 </main>
 
 <style>
-	main {
+	h1 {
+		font: 3rem 'Alata', sans-serif;
 		text-align: center;
-		padding: 1em;
-		max-width: 240px;
+		margin: 1rem 0;
+	}
+
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		/* width: 100%; */
+		max-width: 48rem;
 		margin: 0 auto;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
