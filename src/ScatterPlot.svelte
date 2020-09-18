@@ -7,9 +7,10 @@
 
 	export let data;
 
-	let width;
 	const height = 400;
-	const margin = 50;
+	const margin = 40;
+
+	let width;
 
 	$: xScale = scaleLog()
 		.domain(extent(data, d => +d.gdp / +d.population))
@@ -35,17 +36,17 @@
 <div class='scatter-plot' bind:clientWidth={width}>
 	{#if width}
 		<svg width={width} height={height}>
-				<Axis {width} {height} {margin} scale={xScale} position='bottom' />
-				<Axis {width} {height} {margin} scale={yScale} position='left' />
-				{#each data as d}
-					<circle
-						cx={xScale(+d.gdp / +d.population)}
-						cy={yScale(+d.life_expectancy)}
-						r={radiusScale(+d.population)}
-						fill='rebeccapurple'
-						in:reveal={{ duration: 1000 }}
-					/>
-				{/each}
+			<Axis {width} {height} {margin} scale={xScale} position='bottom' />
+			<Axis {width} {height} {margin} scale={yScale} position='left' />
+			{#each data as d}
+				<circle
+					cx={xScale(+d.gdp / +d.population)}
+					cy={yScale(+d.life_expectancy)}
+					r={radiusScale(+d.population)}
+					fill='rebeccapurple'
+					in:reveal={{ duration: 1000 }}
+				/>
+			{/each}
 		</svg>
 	{/if}
 </div>
@@ -53,5 +54,9 @@
 <style>
 	div {
 		width: 100%;
+	}
+
+	circle {
+		opacity: 0.9;
 	}
 </style>

@@ -8,13 +8,13 @@
 	export let position;
 	export let scale;
 
-	let axis;
 	let transform;
-
 	let g;
 
 	$: {
 		select(g).selectAll('*').remove();
+
+		let axis;
 		switch(position) {
 			case 'bottom':
 				axis = axisBottom(scale).tickSizeOuter(0);
@@ -24,6 +24,7 @@
 				axis = axisLeft(scale).tickSizeOuter(0);
 				transform = `translate(${margin}, 0)`;
 		}
+
 		select(g).call(axis);
 	}
 </script>

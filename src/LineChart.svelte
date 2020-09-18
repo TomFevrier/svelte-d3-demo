@@ -1,28 +1,28 @@
 <script>
-	import { scaleLinear } from 'd3-scale';
-	import { extent } from 'd3-array';
+	import { scaleTime, scaleLinear } from 'd3-scale';
+	import { extent, max } from 'd3-array';
 	import { line } from 'd3-shape';
 
 	import Axis from './Axis.svelte';
 
 	export let data;
 
+	const height = 400;
+	const margin = 40;
+
 	let width;
 
-	const height = 400;
-	const margin = 50;
-
-	$: xScale = scaleLinear()
-		.domain(extent(data, d => d.x))
+	$: xScale = scaleTime()
+		.domain(extent(data, d => new Date(d.date)))
 		.range([margin, width - margin]);
 
 	$: yScale = scaleLinear()
-		.domain(extent(data, d => d.y))
+		.domain([0, max(data, d => +d.price)])
 		.range([height - margin, margin]);
 
 	$: lineGenerator = line()
-		.x(d => xScale(d.x))
-		.y(d => yScale(d.y));
+		.x(d => xScale(new Date(d.date)))
+		.y(d => yScale(+d.price));
 
 	const reveal = (node, { duration }) => {
 		if (!xScale || !yScale) return;
@@ -40,15 +40,14 @@
 		<svg width={width} height={height}>
 			<Axis {width} {height} {margin} scale={xScale} position='bottom' />
 			<Axis {width} {height} {margin} scale={yScale} position='left' />
-
-				<path
-					d={lineGenerator(data)}
-					stroke='rebeccapurple'
-					stroke-width={2}
-					stroke-linecap='round'
-					fill='none'
-					in:reveal={{ duration: 3000 }}
-				/>
+			<path
+				d={lineGenerator(data)}
+				stroke='rebeccapurple'
+				stroke-width={2}
+				stroke-linecap='round'
+				fill='none'
+				in:reveal={{ duration: 3000 }}
+			/>
 		</svg>
 	{/if}
 </div>
