@@ -7,8 +7,8 @@
 	let scatterPlotData;
 	csv('world_bank.csv').then(data => scatterPlotData = data);
 
-	let lineChartData;
-	csv('DCOILBRENTEU.csv').then(data => lineChartData = data);
+	// let lineChartData;
+	// csv('DCOILBRENTEU.csv').then(data => lineChartData = data);
 
 </script>
 
@@ -21,13 +21,13 @@
 			<p>Source&nbsp;: Banque Mondiale</p>
 		</div>
 	{/if}
-	{#if lineChartData}
+	<!-- {#if lineChartData}
 		<div class='chart'>
 			<h3>Évolution du prix du baril de pétrole brut en Europe (en dollars)</h3>
 			<LineChart data={lineChartData} />
 			<p>Source&nbsp;: Federal Reserve Bank of St Louis</p>
 		</div>
-	{/if}
+	{/if} -->
 </main>
 
 <style>
