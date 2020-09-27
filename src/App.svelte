@@ -23,7 +23,7 @@
 	{/if}
 	{#if lineChartData}
 		<div class='chart'>
-			<h3>Évolution du prix du barril de pétrole brut en Europe (en dollars)</h3>
+			<h3>Évolution du prix du baril de pétrole brut en Europe (en dollars)</h3>
 			<LineChart data={lineChartData} />
 			<p>Source&nbsp;: Federal Reserve Bank of St Louis</p>
 		</div>

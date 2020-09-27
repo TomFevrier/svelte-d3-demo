@@ -52,10 +52,6 @@
 </div>
 
 <style>
-	div {
-		width: 100%;
-	}
-
 	circle {
 		opacity: 0.9;
 	}
